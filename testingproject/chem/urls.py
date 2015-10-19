@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^increment/$', views.increment, name='increment'),
     url(r'^questions/$', views.questions, name='questions'),
+    url(r'^questions/(?P<question_id_url>\w+)/$', views.question, name='question'),  # New!
 ]

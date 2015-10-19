@@ -5,19 +5,19 @@
     </head>
 
     <body>
-        <h1>{{ category_name }}</h1>
-        {% if category %}
-            {% if pages %}
+        <h1>{{ question_id }}</h1>
+        {% if question %}
+            {% if choices %}
             <ul>
-                {% for page in pages %}
-                <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                {% for choice in choices %}
+                <li><a href="https://github.com/JessJKitty">{{ choice.choice_text }}</a></li>
                 {% endfor %}
             </ul>
             {% else %}
-                <strong>No pages currently in category.</strong>
+                <strong>No choices currently in question.</strong>
             {% endif %}
         {% else %}
-            The specified category {{ category_name }} does not exist!
-        {% endif %} 
+            The specified category {{ question_id }} does not exist!
+        {% endif %}
     </body>
 </html>

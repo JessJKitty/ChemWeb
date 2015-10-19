@@ -2,7 +2,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from chem.models import Category
-from chem.models import Page, Question
+from chem.models import Page, Question, Choice
 from chem.forms import CategoryForm
 from chem.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
@@ -236,6 +236,9 @@ def questions(request):
     question_list = Question.objects.order_by('-pub_date')[:5]
     context_dict = {'questions': question_list}
 
+    for question in question_list:
+        question.url = question.id
+
     # The following two lines are new.
     # We loop through each category returned, and create a URL attribute.
     # This attribute stores an encoded URL (e.g. spaces replaced with underscores).
@@ -243,4 +246,38 @@ def questions(request):
     return render_to_response('chem/questions.html', context_dict, context)
 
 
+def question(request, question_id_url):
+    context = RequestContext(request)
+
+    # Change underscores in the category name to spaces.
+    # URLs don't handle spaces well, so we encode them as underscores.
+    # We can then simply replace the underscores with spaces again to get the name.
+    question_id = question_id_url
+
+    # Create a context dictionary which we can pass to the template rendering engine.
+    # We start by containing the name of the category passed by the user.
+    context_dict = {'question_id': question_id}
+
+    try:
+        # Can we find a category with the given name?
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
+        question = Question.objects.get(pk=question_id)
+
+        # Retrieve all of the associated pages.
+        # Note that filter returns >= 1 model instance.
+        choices = Choice.objects.filter(question_id=question_id)
+
+        # Adds our results list to the template context under name pages.
+        context_dict['choices'] = choices
+        # We also add the category object from the database to the context dictionary.
+        # We'll use this in the template to verify that the category exists.
+        context_dict['question'] = question
+    except Question.DoesNotExist:
+        # We get here if we didn't find the specified category.
+        # Don't do anything - the template displays the "no category" message for us.
+        pass
+
+    # Go render the response and return it to the client.
+    return render_to_response('chem/question.html', context_dict, context)
 
