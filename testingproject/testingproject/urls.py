@@ -17,12 +17,12 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls import patterns
 from django.contrib import admin
-import rango.urls
+import chem.urls
 import testingproject.views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^rango/', include(rango.urls)),
+    url(r'^chem/', include(chem.urls)),
     url(r'^$', testingproject.views.index, name='index'),
 ]
 

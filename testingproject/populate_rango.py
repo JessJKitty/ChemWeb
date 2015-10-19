@@ -63,8 +63,8 @@ def add_cat(name, likes):
 
 # Start execution here!
 if __name__ == '__main__':
-    print ("Starting Rango population script...")
+    print ("Starting chem population script...")
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'testingproject.settings')
-    from rango.models import Category, Page
+    from chem.models import Category, Page
     print ("imported category, page")
     populate()

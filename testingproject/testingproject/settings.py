@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rango',
+    'chem',
 )
 
 LOGGING_CONFIG = None
@@ -121,5 +121,5 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media') # Absolute path to the media directory
 
-LOGIN_URL = '/rango/login/'
+LOGIN_URL = '/chem/login/'
 

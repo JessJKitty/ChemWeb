@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>chem</title>
+    </head>
+
+    <body>
+
+        {% if user.is_authenticated %}
+			<h1>chem says... hello {{ user.username }}!</h1>
+		{% else %}
+			<h1>chem says... hello world!</h1>
+		{% endif %}
+
+        {% if questions %}
+            <ul>
+                {% for question in questions %}
+                <!-- Following line changed to add an HTML hyperlink -->
+                <li><a href= https://github.com/JessJKitty/ChemWeb/tree/master/testingproject>{{ question.question_text }}</a></li>
+                {% endfor %}
+            </ul>
+       {% else %}
+            <strong>There are no questions present.</strong>
+       {% endif %}
+	
+
+</html>
+
